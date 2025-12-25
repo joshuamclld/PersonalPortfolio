@@ -1,7 +1,5 @@
 # My Dynamic ASP.NET Core Portfolio
 
-![Portfolio Screenshot](https://via.placeholder.com/800x400.png?text=Your+Portfolio+Screenshot+Here)
-
 This is my personal portfolio website, built from the ground up using ASP.NET Core. It's a fully dynamic web application with a custom admin dashboard that allows me to update every part of the site—from my personal bio to my latest projects—without ever touching the code.
 
 **Live Demo:** [Link to your live site on Azure will go here!]

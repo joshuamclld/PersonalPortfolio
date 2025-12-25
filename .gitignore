@@ -1,0 +1,66 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/packages
+
+# build outputs
+/bin
+/obj
+
+# local user settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2015 cache/options
+.vs/
+
+# Rider
+.idea/
+
+# User-specific files
+*.DS_Store
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vsix
+*.suo
+*.opensdf
+*.sdf
+*.cache
+*.VC.db
+*.VC.VC.opendb
+
+# Rider
+.idea
+*.sln.iml
+
+# Uploads folder - IMPORTANT: This prevents your uploaded images/CV from being committed.
+# You should manage these files separately.
+/FinalProjectPortfolio/wwwroot/uploads/
+
+# Environment-specific settings
+/FinalProjectPortfolio/appsettings.Development.json
+/FinalProjectPortfolio/launchSettings.json
+
+# Exclude EF Core Migrations folder
+/FinalProjectPortfolio/Migrations/

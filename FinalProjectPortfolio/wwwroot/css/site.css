@@ -1,0 +1,290 @@
+/* 
+    My Personal Portfolio Stylesheet
+    This is where I've put all the custom styles to make the site my own.
+*/
+
+/* --- My Custom Color Palette --- */
+:root {
+    --custom-primary: #4A70A9; /* My main blue color */
+    --custom-border: #8FABD4;  /* A lighter blue for borders and accents */
+    --custom-body-bg: #EFECE3; /* A nice off-white for the background */
+    --custom-body-color: #000000; /* Black text for readability */
+}
+
+/* I'm overriding Bootstrap's default light theme with my custom colors. */
+html[data-bs-theme='light'] {
+    --bs-primary: var(--custom-primary);
+    --bs-primary-rgb: 74, 112, 169;
+    --bs-body-bg: var(--custom-body-bg);
+    --bs-body-color: var(--custom-body-color);
+    --bs-tertiary-bg: var(--custom-border);
+    --bs-border-color: var(--custom-border);
+}
+
+html[data-bs-theme='light'] .btn-primary {
+    --bs-btn-bg: var(--custom-primary);
+    --bs-btn-border-color: var(--custom-primary);
+    --bs-btn-hover-bg: #3e5a8e; /* A slightly darker blue for hover */
+    --bs-btn-hover-border-color: #3e5a8e;
+}
+
+html[data-bs-theme='light'] .text-primary {
+    color: var(--custom-primary) !important;
+}
+
+
+/* --- Base Styles --- */
+html {
+  font-size: 14px;
+  scroll-behavior: smooth; /* This enables smooth scrolling when I click on navbar links. */
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* A custom focus style for accessibility. */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* --- Hero Section --- */
+/* This makes my main profile section take up most of the screen and centers the content. */
+#profile {
+    min-height: 94vh;
+    display: grid;
+    place-items: center;
+    padding-top: 80px; /* An offset to account for my fixed navbar. */
+}
+
+
+/* --- Scroll Offset for Fixed Navbar --- */
+/* This ensures that when I scroll to a section, the title isn't hidden behind the navbar. */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
+
+/* --- Theme Toggle Icons --- */
+/* I'm using these rules to swap between the sun and moon icons for my theme toggle. */
+#themeToggle .bi-sun-fill,
+html[data-bs-theme='dark'] #themeToggle .bi-moon-fill {
+    display: none;
+}
+
+html[data-bs-theme='dark'] #themeToggle .bi-sun-fill {
+    display: inline-block;
+}
+
+#themeToggle {
+    color: var(--bs-body-color);
+}
+
+/* --- Glassmorphism Navbar --- */
+/* This gives my navbar a cool, semi-transparent "glass" effect. */
+.navbar-glass {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+html[data-bs-theme='dark'] .navbar-glass {
+    background-color: rgba(33, 37, 41, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Centered Navbar Links --- */
+/* This is the magic that centers my navigation links in the middle of the navbar on larger screens. */
+@media (min-width: 576px) {
+    .navbar-nav-centered {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .navbar-nav-centered .nav-item {
+        margin: 0 1rem;
+    }
+}
+
+/* I wanted a subtle glow effect when I hover over the navbar links. */
+.navbar-nav .nav-link {
+    transition: text-shadow 0.3s ease-in-out;  
+}
+
+.navbar-nav .nav-link:hover {
+    text-shadow: 0 0 8px currentColor;
+}
+
+
+/* --- Social Icon Glow Effect --- */
+/* I wanted each social icon to glow with its brand color on hover. */
+.social-icon {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.social-icon.bi-linkedin:hover {
+    color: #0A66C2;
+    text-shadow: 0 0 8px #0A66C2;
+}
+
+.social-icon.bi-github:hover {
+    color: #181717;
+    text-shadow: 0 0 8px #181717;
+}
+html[data-bs-theme='dark'] .social-icon.bi-github:hover {
+    color: #FFFFFF;
+    text-shadow: 0 0 8px #FFFFFF;
+}
+
+.social-icon.bi-facebook:hover {
+    color: #1877F2;
+    text-shadow: 0 0 8px #1877F2;
+}
+
+.social-icon.bi-instagram:hover {
+    color: #E4405F;
+    text-shadow: 0 0 8px #E4405F;
+}
+
+.social-icon.bi-twitter-x:hover {
+    color: #000000;
+    text-shadow: 0 0 8px #000000;
+}
+html[data-bs-theme='dark'] .social-icon.bi-twitter-x:hover {
+    color: #FFFFFF;
+    text-shadow: 0 0 8px #FFFFFF;
+}
+
+.social-icon.bi-youtube:hover {
+    color: #FF0000;
+    text-shadow: 0 0 8px #FF0000;
+}
+
+/* This specifically fixes my GitHub button in the contact section for dark mode. */
+html[data-bs-theme='dark'] .btn-github {
+    --bs-btn-color: var(--bs-light);
+    --bs-btn-border-color: var(--bs-light);
+    --bs-btn-hover-bg: var(--bs-light);
+    --bs-btn-hover-color: var(--bs-dark);
+}
+
+
+/* --- Gradient Profile Picture Border --- */
+/* This creates the gradient border around my profile picture. */
+.profile-picture-container {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--custom-primary), var(--custom-border));
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--bs-body-bg);
+}
+
+/* --- Overlay Service Card --- */
+/* This handles the cool hover effect on my service cards where the text appears over the image. */
+.service-card-overlay {
+    position: relative;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    height: 300px;
+}
+
+.service-card-overlay .card-img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.service-card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    z-index: 2;
+}
+
+.service-card-overlay .card-img-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+}
+
+.service-card-overlay .card-img-overlay .card-text {
+    text-align: initial;
+    padding-bottom: 30px;
+}
+
+.service-card-overlay:hover .card-img {
+    transform: scale(1.1);
+}
+
+.service-card-overlay:hover .card-img-overlay {
+    opacity: 1;
+}
+
+/* --- Infinite Scroller for Projects --- */
+/* This is the setup for my automatic, infinitely scrolling project showcase. */
+.scroller {
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller__inner {
+  padding-left: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  animation: scroll 40s linear infinite;
+}
+
+.scroller__inner li {
+    list-style: none;
+    flex: 0 0 auto;
+    width: 350px;
+}
+
+/* This is the animation that moves the content. */
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 0.5rem));
+  }
+}
+
+/* I can change the speed by changing the animation duration. */
+.scroller[data-speed="slow"] {
+  animation-duration: 80s;
+}
+
+/* I want the animation to pause when I hover over it. */
+.scroller:hover .scroller__inner {
+    animation-play-state: paused;
+}
+
+/* --- Admin Table Actions --- */
+.table .text-end {
+    text-align: right !important;
+}

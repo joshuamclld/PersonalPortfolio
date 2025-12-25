@@ -1,0 +1,291 @@
+﻿@*
+    My Personal Portfolio Homepage
+    This is the main entry point of my site, where I showcase all my sections.
+    I've structured it with semantic <section> tags for each part of my portfolio.
+*@
+@model FinalProjectPortfolio.Models.PortfolioViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* This is my main profile/hero section. It's the first thing people see. *@
+<section id="profile" class="text-center py-5">
+    <div class="container">
+        @if (Model.Profile != null)
+        {
+            @if (!string.IsNullOrEmpty(Model.Profile.ProfilePictureUrl))
+            {
+                <div class="profile-picture-container mb-3 mx-auto" data-aos="zoom-in">
+                    <img src="~/uploads/profile/@Model.Profile.ProfilePictureUrl" class="profile-picture" alt="Profile Picture" />
+                </div>
+            }
+            <h1 class="display-4 fw-bold" data-aos="fade-up">@Model.Profile.Name</h1>
+            <h2 class="text-muted mb-3" data-aos="fade-up" data-aos-delay="100">@Model.Profile.Title</h2>
+            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">@Model.Profile.ShortBio</p>
+            
+            <div class="d-flex justify-content-center gap-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                @if (!string.IsNullOrEmpty(Model.Profile.CVUrl))
+                {
+                    <a href="~/uploads/cv/@Model.Profile.CVUrl" class="btn btn-primary btn-lg" download>
+                        <i class="bi bi-download me-2"></i>Download CV
+                    </a>
+                }
+                <a href="#projects" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-briefcase me-2"></i>View Projects
+                </a>
+                <a href="#contact" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-envelope me-2"></i>Contact Me
+                </a>
+            </div>
+
+            @if (Model.SocialLinks.Any())
+            {
+                <div class="d-flex justify-content-center gap-3" data-aos="fade-up" data-aos-delay="400">
+                    @foreach (var link in Model.SocialLinks)
+                    {
+                        <a href="@link.Url" class="btn btn-link text-body-secondary fs-3" target="_blank" title="@link.Name">
+                            <i class="bi @link.IconClass social-icon"></i>
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</section>
+
+@* This section combines my bio, skills, and education into one "About Me" area. *@
+<section id="about" class="py-5 bg-body-tertiary">
+    <div class="container" data-aos="fade-up">
+        <h2 class="text-center mb-4">About Me</h2>
+        @if (Model.About != null)
+        {
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    @Html.Raw(Model.About.Content)
+                </div>
+            </div>
+        }
+
+        @if (Model.Skills.Any())
+        {
+            <h3 class="text-center mb-3">Skills & Expertise</h3>
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <div class="row">
+                        @{
+                            var groupedSkills = Model.Skills.GroupBy(s => s.Category).ToList();
+                            foreach (var group in groupedSkills)
+                            {
+                                <div class="col-md-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+                                    <h5>@group.Key</h5>
+                                    <ul class="list-unstyled">
+                                        @foreach (var skill in group)
+                                        {
+                                            <li class="mb-2">
+                                                <i class="bi @skill.IconClass me-2 text-primary"></i>
+                                                @skill.Name
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        
+        @if (Model.Educations.Any())
+        {
+            <h3 class="text-center mb-3">Education</h3>
+            <div class="list-group shadow-sm">
+                @foreach (var (edu, index) in Model.Educations.Select((value, i) => (value, i)))
+                {
+                    <div class="list-group-item" data-aos="fade-up" data-aos-delay="@(index * 100)">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 fw-bold">@edu.Institution</h5>
+                            <small class="text-muted">@edu.StartDate.ToString("MMM yyyy") - @(edu.EndDate?.ToString("MMM yyyy") ?? "Present")</small>
+                        </div>
+                        <p class="mb-1 text-primary">@edu.Degree</p>
+                        @if (!string.IsNullOrEmpty(edu.FieldOfStudy))
+                        {
+                            <p class="mb-1"><em>@edu.FieldOfStudy</em></p>
+                        }
+                        @if (!string.IsNullOrEmpty(edu.Description))
+                        {
+                            <p class="mb-1">@edu.Description</p>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+@* This is where I list the services I offer. *@
+<section id="services" class="py-5">
+    <div class="container" data-aos="fade-up">
+        <h2 class="text-center mb-4">Services</h2>
+        <div class="row g-4 justify-content-center">
+            @foreach (var (service, index) in Model.Services.Select((value, i) => (value, i)))
+            {
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="@(index * 100)">
+                    <div class="card service-card-overlay shadow-sm">
+                        <img src="~/uploads/services/@service.ImageUrl" class="card-img" alt="@service.Name">
+                        <div class="service-card-title">
+                            <h5 class="card-title">@service.Name</h5>
+                        </div>
+                        <div class="card-img-overlay">
+                            <p class="card-text">@service.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@* This section lists my professional work experience. *@
+<section id="experience" class="py-5 bg-body-tertiary">
+    <div class="container" data-aos="fade-up">
+        <h2 class="text-center mb-4">Experience</h2>
+        <div class="list-group shadow-sm">
+            @foreach (var (exp, index) in Model.Experiences.Select((value, i) => (value, i)))
+            {
+                <div class="list-group-item" data-aos="fade-up" data-aos-delay="@(index * 100)">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 fw-bold">@exp.JobTitle</h5>
+                        <small class="text-muted">@exp.StartDate.ToString("MMM yyyy") - @(exp.EndDate?.ToString("MMM yyyy") ?? "Present")</small>
+                    </div>
+                    <p class="mb-1 text-primary">@exp.Company</p>
+                    <p class="mb-1">@exp.Description</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@* This is my project showcase, which scrolls automatically. *@
+<section id="projects" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" data-aos="fade-up">Projects</h2>
+        <div class="scroller" data-speed="slow">
+            <ul class="scroller__inner">
+                @foreach (var project in Model.Projects)
+                {
+                    <li>
+                        <div class="card h-100 shadow-sm">
+                            @if (!string.IsNullOrEmpty(project.ImageUrl))
+                            {
+                                <img src="~/uploads/projects/@project.ImageUrl" class="card-img-top" alt="@project.Title" style="height: 200px; object-fit: cover;">
+                            }
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">@project.Title</h5>
+                                <p class="card-text flex-grow-1">@project.Description</p>
+                                @if (!string.IsNullOrEmpty(project.ProjectLink))
+                                {
+                                    <a href="@project.ProjectLink" class="btn btn-primary mt-3" target="_blank">View Project</a>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+                @* I'm duplicating the items here to create a seamless infinite loop effect. *@
+                @foreach (var project in Model.Projects)
+                {
+                    <li aria-hidden="true">
+                        <div class="card h-100 shadow-sm">
+                            @if (!string.IsNullOrEmpty(project.ImageUrl))
+                            {
+                                <img src="~/uploads/projects/@project.ImageUrl" class="card-img-top" alt="@project.Title" style="height: 200px; object-fit: cover;">
+                            }
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">@project.Title</h5>
+                                <p class="card-text flex-grow-1">@project.Description</p>
+                                @if (!string.IsNullOrEmpty(project.ProjectLink))
+                                {
+                                    <a href="@project.ProjectLink" class="btn btn-primary mt-3" target="_blank">View Project</a>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+@* This is my contact section with a form that people can use to send me a message. *@
+<section id="contact" class="py-5 bg-body-tertiary">
+    <div class="container" data-aos="fade-up">
+        <h2 class="text-center mb-4">Get in Touch</h2>
+        @if (Model.Contact != null)
+        {
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-5" data-aos="fade-right">
+                            <h4 class="mb-3">Contact Information</h4>
+                            <p><strong>Email:</strong> <a href="mailto:@Model.Contact.Email" class="text-decoration-none">@Model.Contact.Email</a></p>
+                            @if (!string.IsNullOrEmpty(Model.Contact.Phone))
+                            {
+                                <p><strong>Phone:</strong> @Model.Contact.Phone</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Contact.Address))
+                            {
+                                <p><strong>Address:</strong> @Model.Contact.Address</p>
+                            }
+                            <div class="mt-4">
+                                <h5 class="mb-3">Follow Me</h5>
+                                @if (!string.IsNullOrEmpty(Model.Contact.LinkedInUrl))
+                                {
+                                    <a href="@Model.Contact.LinkedInUrl" class="btn btn-outline-primary me-2" target="_blank">
+                                        <i class="bi bi-linkedin me-1"></i> LinkedIn
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Contact.GitHubUrl))
+                                {
+                                    <a href="@Model.Contact.GitHubUrl" class="btn btn-outline-dark btn-github" target="_blank">
+                                        <i class="bi bi-github me-1"></i> GitHub
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-7" data-aos="fade-left">
+                            <h4 class="mb-3">Send Me a Message</h4>
+                            <form id="contactForm" action="https://formspree.io/f/xbdrqwjg" method="POST">
+                                <div class="mb-3">
+                                    <label for="contactName" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="contactName" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactEmail" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" id="contactEmail" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactMessage" class="form-label">Message</label>
+                                    <textarea class="form-control" id="contactMessage" name="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-send me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<footer class="border-top footer text-muted mt-auto py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            &copy; 2025 Joshua Macalalad. All rights reserved.
+        </div>
+        <div>
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</footer>

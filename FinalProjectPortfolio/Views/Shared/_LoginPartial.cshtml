@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Identity
+@using FinalProjectPortfolio.Data
+@using Microsoft.EntityFrameworkCore
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject ApplicationDbContext Context
+
+<div class="d-flex align-items-center">
+@if (SignInManager.IsSignedIn(User))
+{
+    // Try to get the name from the Profile table first
+    var profile = await Context.Profiles.FirstOrDefaultAsync();
+    string displayName = "User"; // Default display name
+
+    if (profile != null && !string.IsNullOrEmpty(profile.Name))
+    {
+        // Use the first name from the profile (e.g., "Joshua" from "Joshua Macalalad")
+        displayName = profile.Name.Split(' ')[0];
+    }
+    else
+    {
+        // Fallback to username if no profile exists yet
+        var user = await UserManager.GetUserAsync(User);
+        if (user != null) // Null check to prevent exception
+        {
+            displayName = user.UserName.Contains('@') ? user.UserName.Split('@')[0] : user.UserName;
+        }
+    }
+
+    <a class="nav-link me-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @displayName!</a>
+    
+    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" class="btn btn-link nav-link border-0 p-0">Logout</button>
+    </form>
+}
+else
+{
+    <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Admin Login</a>
+}
+</div>

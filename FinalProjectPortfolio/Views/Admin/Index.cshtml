@@ -1,0 +1,110 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6">Admin Dashboard</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-circle fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Profile</h5>
+                    <p class="card-text text-muted">Manage your personal info, picture, and CV.</p>
+                    <a asp-action="EditProfile" class="btn btn-primary stretched-link">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-earmark-person fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">About Me</h5>
+                    <p class="card-text text-muted">Update the content of your "About Me" section.</p>
+                    <a asp-action="EditAbout" class="btn btn-primary stretched-link">Edit About</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-code-slash fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Skills</h5>
+                    <p class="card-text text-muted">Add, edit, or remove your technical skills.</p>
+                    <a asp-action="ManageSkills" class="btn btn-primary stretched-link">Manage Skills</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-link-45deg fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Social Links</h5>
+                    <p class="card-text text-muted">Manage your social media and other profile links.</p>
+                    <a asp-action="ManageSocialLinks" class="btn btn-primary stretched-link">Manage Socials</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-briefcase fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Experience</h5>
+                    <p class="card-text text-muted">Update your professional work experience.</p>
+                    <a asp-action="ManageExperience" class="btn btn-primary stretched-link">Manage Experience</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-book fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Education</h5>
+                    <p class="card-text text-muted">Manage your academic background.</p>
+                    <a asp-action="ManageEducation" class="btn btn-primary stretched-link">Manage Education</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-gear fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Services</h5>
+                    <p class="card-text text-muted">Manage the services you offer.</p>
+                    <a asp-action="ManageServices" class="btn btn-primary stretched-link">Manage Services</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-kanban fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Projects</h5>
+                    <p class="card-text text-muted">Add, edit, or remove portfolio projects.</p>
+                    <a asp-action="ManageProjects" class="btn btn-primary stretched-link">Manage Projects</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-telephone fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Contact Info</h5>
+                    <p class="card-text text-muted">Update your contact details for the public page.</p>
+                    <a asp-action="EditContact" class="btn btn-primary stretched-link">Edit Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

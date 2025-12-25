@@ -1,0 +1,42 @@
+@model FinalProjectPortfolio.Models.Project
+
+@{
+    ViewData["Title"] = "Delete Project";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="display-6">Delete Project</h1>
+    </div>
+    <a asp-action="ManageProjects" class="btn btn-sm btn-outline-secondary mb-4">
+        <i class="bi bi-arrow-left me-1"></i>Back to List
+    </a>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Are you sure you want to delete this?</h4>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">This action cannot be undone.</p>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Title)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+                <dt class="col-sm-3">Image</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="~/uploads/projects/@Model.ImageUrl" class="img-thumbnail" style="max-width: 200px;" />
+                    }
+                </dd>
+            </dl>
+            <form asp-action="DeleteProject" class="text-end">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-2"></i>Confirm Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
